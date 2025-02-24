@@ -3,18 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTSP Stream using ActiveX</title>
+    <title>RTSP Streams</title>
+    <script src="https://cdn.jsdelivr.net/npm/@axis-media/media-stream-library/dist/media-stream-library.min.js"></script>
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px;
+            background: #000;
+        }
+        .stream-container {
+            width: 100%;
+            height: 300px;
+            background: #222;
+        }
+    </style>
 </head>
 <body>
-    <h1>RTSP Stream using VLC ActiveX</h1>
-    
-    <!-- Embed VLC ActiveX control to display RTSP stream -->
-    <object id="vlc" width="640" height="480" type="application/x-oleobject" 
-            classid="clsid:6BF52A50-394A-11d3-B153-00C04F79FAA6">
-        <param name="url" value="rtsp://189.162.73.242/axis-media/media.amp">
-        <param name="autoStart" value="true">
-        <param name="playCount" value="1">
-    </object>
+    <script>
+        const streams = [
+            "rtsp://189.162.73.242/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp",
+            "rtsp://166.156.132.170/axis-media/media.amp"
+        ];
 
+        streams.forEach((url, index) => {
+            const container = document.createElement("div");
+            container.className = "stream-container";
+            document.body.appendChild(container);
+
+            const player = new window.mediaStreamLibrary.RtspPlayer(container, {
+                url: url,
+                autoplay: true
+            });
+
+            player.start();
+        });
+    </script>
 </body>
 </html>
